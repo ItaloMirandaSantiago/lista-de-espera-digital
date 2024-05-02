@@ -1,38 +1,27 @@
-import express, {Application} from "express"
+import express from "express"
 import http from 'http'
 import { Server } from "socket.io"
 
-class App{
-    private app: Application
-    private http: http.Server
-    private io: Server
-    constructor(){
-        this.app = express()
-        this.http = http.createServer(this.app)
-        this.io = new Server(this.http)
-        this.listerSocket()
-        this.setupRoutes()
-    }
-    listerServer(){
-        this.http.listen(3000, ()=> console.log('server is running'))
-    }
-    listerSocket(){
-        this.io.on('connection', (socket)=>{
-            console.log('user connected =>', socket.id)
+const server = express()
 
-            socket.on('message', (msg)=>{
-                console.log('FILE APP - SOCKET - MSG', msg)
-                this.io.emit('message', msg)
-            })
-        })
-    }
-    setupRoutes(){
-        this.app.get('/', (req, res)=>{
-            res.sendFile(__dirname + '/index.html')
-        })
-    }
-}
+const httpServer = http.createServer(server)
 
-const app = new App()
+const io = new Server(httpServer)
 
-app.listerServer()
+// rotas
+
+server.get('/', (req, res)=>{
+    res.sendFile(__dirname + '/index.html')
+})
+
+io.on('connection', (socket)=>{
+    console.log('user connected =>', socket.id)
+
+    socket.on('message', (msg)=>{
+        console.log('FILE APP - SOCKET - MSG', msg)
+        io.emit('message', msg)
+    })
+})
+
+//iniciar server
+httpServer.listen(3000, ()=> console.log('server is running'))
