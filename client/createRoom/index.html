@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/output.css" />
+    <title>FilaWeb</title>
+</head>
+<body>
+    <div>
+        <div>
+            <p id="idUser">Carregando...</p>
+            <p id="idRoom">Carregando...</p>
+            <div>
+
+                <button class="Enter" onclick="enter()">Entrar na sala</button>
+                <input class="bg-slate-500" id="message" type="text" placeholder="enviar menssagem"/>
+                <button onclick="enviar()">Enviar ao grupo</button>
+            
+                <ul>
+                    <li>mensagens do grupo</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../Js/CreateRoom.js"></script>
+</body>
+</html>

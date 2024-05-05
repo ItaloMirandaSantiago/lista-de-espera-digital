@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/output.css" />
+    <title>FilaWeb</title>
+</head>
+<body class="background">
+    <div class="flex justify-around justify-items-center flex-col h-screen w-screen">
+        <div class=" twoCor h-screen w-screen flex flex-col justify-between">
+            <div class="flex flex-row justify-around justify-items-center items-center h-full">
+                <div class="">
+                    <h1 class="text-2xl">Bem-vindo!</h1>
+                    <p>Conosco o seu negócio prospera!</p>
+                </div>
+
+
+                <div>
+                    <img src="./LogoSample_ByTailorBrands.jpg" class="rounded imagem-com-sombra" />
+                </div>
+            </div>
+            
+        </div>
+        <div class="background flex flex-row justify-around my-8">
+            <button class="bg-slate-600 py-5 px-16 rounded hover:bg-slate-800" onclick="changeHref(true)">Criar sala</button>
+    
+            <button class="bg-red-600 py-5 px-16 rounded hover:bg-red-800">  Entrar  </button>
+        </div>
+
+    </div>
+
+    <div class="hidden">
+
+        <button class="room" onclick="createRoom()">Criar sala</button>
+        <input type="text" id="numberRoom" placeholder="código da sala"/>
+        <button class="Enter" onclick="enter()">Entrar na sala</button>
+        <input id="message" type="text" placeholder="enviar menssagem"/>
+        <button onclick="enviar()">Enviar ao grupo</button>
+    
+        <ul>
+            <li>mensagens do grupo</li>
+        </ul>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./Js/index.js" ></script>
+
+</body>
+</html>

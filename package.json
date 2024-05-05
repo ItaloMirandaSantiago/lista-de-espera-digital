@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": " tsx watch server/server.ts",
+    "tailwindcss": "tailwindcss -i ./client/CSS/style.css -o ./client/CSS/output.css --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "tailwindcss": "^3.4.3",
     "tsx": "^4.8.2",
     "typescript": "^5.4.5"
   },
