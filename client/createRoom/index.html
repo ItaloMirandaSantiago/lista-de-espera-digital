@@ -8,17 +8,26 @@
 </head>
 <body>
     <div>
-        <div>
-            <p id="idUser">Carregando...</p>
-            <p id="idRoom">Carregando...</p>
-            <div>
+        <div class="h-screen w-screen">
+            <div class="flex flex-row justify-around">
+                <p id="idUser">Carregando...</p>
+                <p id="idRoom">Carregando...</p>
+            </div>
+            <div class="bg-gray-500 flex flex-col justify-center items-center min-w-full min-h-full">
 
-                <button class="Enter" onclick="enter()">Entrar na sala</button>
-                <input class="bg-slate-500" id="message" type="text" placeholder="enviar menssagem"/>
-                <button onclick="enviar()">Enviar ao grupo</button>
-            
-                <ul>
-                    <li>mensagens do grupo</li>
+                <input class="border bg-transparent p-2 rounded mt-5" id="message" type="text" placeholder="Escolha como vai ser o nome da chamada"/>
+                <div class="flex flex-row justify-around w-full  my-4">
+                    <button class="bg-blue-700 rounded p-2" onclick="enviar()">Escolher</button>
+                </div>
+                <div class="flex flex-row">
+                    <input id="check" type="checkbox" placeholder="Automatíco"/>
+                    <p>Automatíco</p>
+                </div>
+                <ul id="received">
+                    <li id="instruction" class="text-center">
+                        <h1 class="font-bold text-2xl border-b border-black">Como funciona?</h1>
+                        <p>Primeiro, escolha qual será o nome da chamada, por exemplo, 'Pedido' ou 'PR' (Preferencial). Sempre que for chamar a próxima pessoa, clique em 'Próximo'. O sistema então aumentará o número. Por exemplo, se o nome escolhido for 'Pedido', sempre que clicar em 'Próximo', o sistema enviará 'Pedido 1', 'Pedido 2' e assim por diante. Caso deseje mais autonomia, você pode desativar esse comportamento, mas precisará escrever o nome sempre que for chamar o próximo.</p>
+                    </li>
                 </ul>
             </div>
         </div>

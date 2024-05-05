@@ -23,6 +23,10 @@ server.get('/createroom', (req, res)=>{
     res.sendFile(__dirname + '/../client/createroom/index.html')
 })
 
+server.get('/joinroom', (req, res)=>{
+    res.sendFile(__dirname + '/../client/joinRoom/index.html')
+})
+
 const socketIdToUser = {}
 
 const roomParticipants = {}
@@ -35,6 +39,7 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('createRoom', (ID)=>{
+
         if (!ID) {
            return socket.emit('roomCreated', false);
         }
@@ -42,16 +47,18 @@ io.on('connection', (socket)=>{
             return socket.emit('roomCreated', false)
         }
             if (!socketIdToUser[ID][1]) {
-                socketIdToUser[ID][1] = true
+
                 const roomId = Math.random().toString(36).substring(2,9)
-            
+
+                socketIdToUser[ID][1] = roomId
+
                 socket.join(roomId)
         
-                roomParticipants[roomId] = [socketIdToUser[ID]]
+                roomParticipants[roomId] = [socketIdToUser[ID][0]]
                 socket.emit('roomCreated', roomId);
                 console.log('room creates', roomParticipants)
-            }else if (!socketIdToUser[ID][1]) {
-                socket.emit('roomCreated', true)
+            }else if (socketIdToUser[ID][1]) {
+                socket.emit('roomCreated', socketIdToUser[ID][1])
             }else{
                 socket.emit('roomCreated', false);
             }   
@@ -59,9 +66,22 @@ io.on('connection', (socket)=>{
 
     })
 
-    socket.on('joinRoom', (roomId)=>{
+    socket.on('joinRoom', (roomId, ID)=>{
 
-        if (roomParticipants[roomId]) {
+        if (roomParticipants[roomId] && socketIdToUser[ID]) {
+            console.log(roomParticipants[roomId])
+
+            for (let i = 0; i < roomParticipants[roomId].length; i++) {
+
+                if (roomParticipants[roomId][i] === ID) {
+                    return socket.emit('joinRoom', (roomId))
+                }
+                
+            }
+
+            roomParticipants[roomId].push(socketIdToUser[ID][0])
+            socketIdToUser[ID][1] = true
+            console.log('teste')
             socket.join(roomId)
             socket.emit('joinRoom', (roomId))
         }else{
@@ -69,10 +89,13 @@ io.on('connection', (socket)=>{
         }
     })
 
-    socket.on('message', (msg, roomId)=>{
-        if (socketIdToUser[socket.id] && roomParticipants[socket.id]) {
+    socket.on('message', (msg, roomId, ID)=>{
+  
+        if (socketIdToUser[ID] && roomParticipants[roomId]) {
             console.log(msg, roomId)
-            io.to(roomId).emit('messageReceived', {userId: socketIdToUser[socket.id], msg})   
+            console.log('rodando')
+            console.log(socketIdToUser[ID], msg)
+            io.to(roomId).emit('messageReceived', {userId: socketIdToUser[ID], msg})   
         }
     })
 })

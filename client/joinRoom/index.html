@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/output.css" />
+    <title>FilaWeb</title>
+</head>
+<body>
+    <div id="init" class="w-screen h-screen">
+        <p id="idUser">Carregando...</p>
+        <div class="flex flex-col justify-center items-center bg-slate-500 w-full h-full">
+            <input class="border bg-transparent p-2 rounded mt-5" id="join" type="text" placeholder="código da sala"/>
+            <button class="bg-blue-700 p-4 rounded-md" onclick="Join()">Entrar</button>
+        </div>
+    </div>
+    <div id="edit" class="flex-col justify-center items-center min-w-screen min-h-screen bg-slate-500 hidden">
+        <div class="w-full h-1/2 bg-white absolute flex justify-center items-center">
+            <h1 class="absolute left-0 top-0">ultima chamada:</h1>
+            <div class="bg-green-500 h-1/2 w-10/12">
+                <div class="flex justify-center items-center w-full h-full">
+                    <p id="titlemist" class="text-black font-bold text-3xl">Carregando...</p>
+                </div>
+            </div>
+        </div>
+        <li>Fila</li>
+        <ul id="received" class="bg-blue-500 absolute top-1/2 w-full h-1/2">
+        </ul>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../Js/JoinRoom.js"></script>
+</body>
+</html>

@@ -1,8 +1,8 @@
-const urlSite  = 'localhost/3000'
 
 var socket = io()
 
 document.addEventListener('DOMContentLoaded', () => {
+    localStorage.clear()
     socket.emit('setUserId');
 });
 
@@ -13,21 +13,8 @@ socket.on('IdUser', (userId) => {
 
 const changeHref = (href)=>{
 
-    if (href) {
-        window.location.href = '/createroom';
-    }else{
+        window.location.href = href;
 
-    }
 }
 
-const enter = ()=>{
-    const roomID = document.getElementById('numberRoom').value
-    socket.emit('joinRoom', roomID)
-}
-
-
-
-socket.on('joinRoom', (roomId)=>{
-    console.log(roomId)
-})
 
